@@ -6,7 +6,8 @@ t_s = T_mat(:,2); %Take all the time points
 C_nt = T_mat(2:end,3:end); %Take all the cells and time points and store in a matrix Neurons X Time
 l = size(C_nt); %find the number of cells N and number of time points T
 disp(l)
-MeanWT = mean(C_nt)
+MeanWT = mean(C_nt);
+
 %% Import the excel data Hom
 data_path = 'DECAY_HOM_refined.xlsx';
 Thom = readtable(data_path);
@@ -14,22 +15,25 @@ T_mathom = table2array(Thom);
 t_s_hom = T_mathom(:,2); %Take all the time points
 C_nt_hom = T_mathom(2:end,3:end); %Take all the cells and time points and store in a matrix Neurons X Time
 l_hom = size(C_nt_hom); %find the number of cells N and number of time points T
-disp(l_hom)
-MeanHOM = mean(C_nt_hom)
+disp(l_hom);
+MeanHOM = mean(C_nt_hom);
+
 %% Normalisation (might be unnecessary)
 m = C_nt(:,1:60); %all values from 1 : 60 for each neuron
-mean_subBaseline = mean(m,2) %mean of all values from 1 : 60 for each neuron
-mean_Baseline = mean(mean_subBaseline)
+mean_subBaseline = mean(m,2); %mean of all values from 1 : 60 for each neuron
+mean_Baseline = mean(mean_subBaseline);
 Norm_C_nt = C_nt - mean_subBaseline;
 Norm_C_tn = Norm_C_nt';
 plot(Norm_C_tn);
+
 %% Normalisation (might be unnecessary) Hom
 m_hom = C_nt_hom(:,1:60); %all values from 1 : 60 for each neuron
-mean_subBaseline_hom = mean(m_hom,2) %mean of all values from 1 : 60 for each neuron
-mean_Baseline_hom = mean(mean_subBaseline_hom)
+mean_subBaseline_hom = mean(m_hom,2); %mean of all values from 1 : 60 for each neuron
+mean_Baseline_hom = mean(mean_subBaseline_hom);
 Norm_C_nt_hom = C_nt_hom - mean_subBaseline_hom;
 Norm_C_tn_hom = Norm_C_nt_hom';
 plot(Norm_C_tn_hom);
+
 %% Plot means WT vs Hom
 font_sz = 30;
 lw = 4;
@@ -88,12 +92,12 @@ Anim13WT = T_mat(A13WTidx,:);
 A14WTidx = T_mat(:,1) >= 720 & T_mat(:,1) <= 741; %% animal14
 Anim14WT = T_mat(A14WTidx,:);
 
-c = [Anim1WT;Anim2WT;Anim3WT;Anim4WT;Anim5WT;Anim11WT;Anim13WT;Anim14WT]
+c = [Anim1WT;Anim2WT;Anim3WT;Anim4WT;Anim5WT;Anim11WT;Anim13WT;Anim14WT];
 filename = 'First_selection_WT.xlsx';
 table_data = table(c);
 writetable(table_data, filename); %% keeps 7 out of 8 animals based on quality, animal 14 fully excluded
 
-d = [Anim2WT;Anim3WT;Anim4WT;Anim5WT;;Anim13WT;Anim14WT]
+d = [Anim2WT;Anim3WT;Anim4WT;Anim5WT;Anim13WT;Anim14WT];
 filename = 'Final_selection_WT.xlsx';
 table_data_fin = table(d);
 writetable(table_data_fin, filename); %% keeps 5 out of 8 animals based on number of cells, excludes anim1WT and anim11WT due to fewer than 30 cells
@@ -106,7 +110,7 @@ T_mathom = table2array(Thom);
 A10HOMidx = T_mathom(:,1) >= 1 & T_mathom(:,1) <= 50; %% animal10hom
 Anim10HOM = T_mathom(A10HOMidx,:);
 
-A6HOMidx = T_mathom(:,1) >= 51 & T_mathom(:,1) <=228; %% animal6hom
+A6HOMidx = T_mathom(:,1) >= 51 & T_mathom(:,1) <= 228; %% animal6hom
 Anim6HOM = T_mathom(A6HOMidx,:);
 
 A7HOMidx = T_mathom(:,1) >= 229 & T_mathom(:,1) <= 310; %% animal7hom
@@ -119,7 +123,7 @@ A9HOMidx = T_mathom(:,1) >= 506 & T_mathom(:,1) <= 784; %% animal9hom
 Anim9HOM = T_mathom(A9HOMidx,:);
 
 
-e = [Anim10HOM;Anim6HOM;Anim7HOM;Anim8HOM;Anim9HOM]
+e = [Anim10HOM;Anim6HOM;Anim7HOM;Anim8HOM;Anim9HOM];
 filename = 'First_selection_HOM.xlsx';
 table_data = table(e);
 writetable(table_data, filename); %% keeps animals based on quality, all animals included and all animals more than 30 cells
@@ -134,7 +138,7 @@ a13 = mean(Anim13WT(:,3:end));
 
 figure;
 font_sz = 150;
-ax.FontSize = 12
+ax.FontSize = 12;
 plot(a2);
 title('Activity - individual animals WT')
 xlabel('Time (s)');
@@ -171,7 +175,7 @@ plot(b10);
 title('Activity - individual animals HOM')
 xlabel('Time (s)');
 ylabel('Ratio 340:380');
-hold on
+hold on;
 
 plot(b6)
 plot(b7)
