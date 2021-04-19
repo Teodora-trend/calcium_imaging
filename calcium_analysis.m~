@@ -8,12 +8,8 @@ resp_window_end_s = resp_window_start_s + resp_window_duration_s;
 n_reps = length(resp_window_start_s);
 
 %% Select figures to plot and define plotting params
-
-neuronal_type = 'DRG'; %Which neuronal type to analyse
-%DH - Dorsal Horn
-%DRG - Dorsal Root Ganglion
-
-analysis_type = 'WT'; %Which data to analyse. The options are:
+neuronal_type = ''; %
+analysis_type = 'HOM'; %Which data to analyse. The options are:
 % 'WT' - Wild type
 % 'HOM' - Homozygous
 
@@ -22,11 +18,9 @@ plot_fig2 = 1;
 plot_fig3 = 1;
 plot_fig4 = 1;
 plot_fig5 = 1;
-font_sz = 40;
+font_sz = 15;
 fig_format = 'png'; %What fromat the pictures are saved in
-
-base_dir = [neuronal_type,'_analysis'];
-save_dir = fullfile(base_dir,'SPNP_sorting',analysis_type);
+save_dir = 'Figure2_sup2';
 
 if ~exist(save_dir, 'dir')
     mkdir(save_dir);
@@ -35,8 +29,8 @@ end
 %% Inport the excel data
 base_name = 'Calcium_Response_';
 
-data_path = [base_name,neuronal_type,'_',analysis_type,'.xlsx'];
-T = readtable(fullfile(base_dir,data_path));
+data_path = [base_name,analysis_type,'.xlsx'];
+T = readtable(data_path);
 T_mat = table2array(T); 
 t_s = T_mat(:,1); %Take all the time points
 C_tn = T_mat(:,2:end); %Take all the cells and time points and store in a matrix
